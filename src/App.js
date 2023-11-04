@@ -1,6 +1,9 @@
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+  const [toDos, setToDos] = useState([]);
+  const [toDo, setToDo] = useState('')
   return (
     <div className="app">
       <div className="mainHeading">
@@ -11,20 +14,28 @@ function App() {
         <h2>Whoop, it's Wednesday 🌝 ☕ </h2>
       </div>
       <div className="input">
-        <input type="text" placeholder="🖊️ Add item..." />
-        <i className="fas fa-plus"></i>
+        <input value={toDo} onChange={(e) => setToDo(e.target.value)} type="text" placeholder="🖊️ Add item..." />
+        <i onClick={() => setToDos([...toDos, {text: toDo, status: false}])} className="fas fa-plus"></i>
       </div>
       <div className="todos">
-        <div className="todo">
+        {
+          toDos.map((value) => {
+            return (
+              <div className="todo">
           <div className="left">
             <input type="checkbox" name="" id="" />
-            <p>Rect tutorial</p>
+            <p>{value.text}</p>
           </div>
           <div className="right">
             <i className="fas fa-times"></i>
           </div>
         </div>
-      </div>
+            )
+          })
+          
+        }
+        </div>
+        
     </div>
   );
 }
